@@ -1,7 +1,7 @@
 import  {useForm} from 'react-hook-form'
 import { useState } from 'react'
 import {signinAmbulance,signinHospital,signinUser } from '../api/auth'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,Link } from 'react-router-dom'
 import  useAuth  from '../hooks/useAuth'
 const Signin = () => {
   const {
@@ -48,13 +48,13 @@ const Signin = () => {
     reset()
   }
   return (
-    <div className='max-w-screen-md mx-auto mt-10'>
-      <h1 className='text-center font-bold text-2xl underline underline-offset-2'>Sign In</h1>
-      <form className="form-control w-full max-w-xs mx-auto gap-2" onSubmit={handleSubmit(onSubmit)}>
+    <div className='mx-auto mt-10 max-w-screen-md'>
+      <h1 className='font-bold text-2xl text-center underline underline-offset-2'>Sign In</h1>
+      <form className="gap-2 form-control mx-auto w-full max-w-xs" onSubmit={handleSubmit(onSubmit)}>
         <div className="label">
           <span className="label-text">Sign In as</span>
         </div>
-        <select className="select select-bordered"  value={type}  onChange={handleFormChange}>
+        <select className="select-bordered select"  value={type}  onChange={handleFormChange}>
           <option value={'us'}>User</option>
           <option value={'ha'}>Hospital Authority</option>
           <option value={'ad'}>Ambulance Driver</option>
@@ -62,12 +62,13 @@ const Signin = () => {
         <div className="label">
           <span className="label-text">Email : </span>
         </div>
-        <input type="email" className='input input-bordered w-full max-w-xs' {...register('email',{required:true})} />
+        <input type="email" className='input-bordered w-full max-w-xs input' {...register('email',{required:true})} />
         <div className="label">
           <span className="label-text">Password : </span>
         </div>
-        <input type="password" className='input input-bordered w-full max-w-xs' {...register('password',{required:true})} />
+        <input type="password" className='input-bordered w-full max-w-xs input' {...register('password',{required:true})} />
         <button className="btn" type='submit' disabled={loading}>{loading && <span className="loading loading-spinner"></span>}Sign In</button>
+        <span>Don&apos;t have an account? <Link to={"/signup"} className='text-blue-600 underline'>Create One</Link> </span>
       </form>
     </div>
   )

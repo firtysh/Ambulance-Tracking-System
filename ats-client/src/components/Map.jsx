@@ -8,11 +8,11 @@ const Map = ()=>{
         // console.log(await getHospitals())
         // })()
         
-        const map = initMap({ container: mapRef.current, location: [86.99, 23.485], token: 'pk.eyJ1IjoicmFraGktMTQiLCJhIjoiY2xycDVnOWpyMDIydDJqbGlhM3h1a3VnYyJ9.-iZoVxx_umdTFq9lxVcAdA' })
+        const map = initMap({ container: mapRef.current, location: [86.99, 23.485], token: '' })
     
       }, [])
     return <>
-    <div id="map" ref={mapRef} className='w-full  h-1/2 mx-auto'/>
+    <div id="map" ref={mapRef} className='mx-auto w-full h-1/2'/>
     </>
 }
 

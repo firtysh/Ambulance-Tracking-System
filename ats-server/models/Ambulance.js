@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 const Schema = mongoose.Schema;
 
 const ambulanceSchema = new Schema({
@@ -11,23 +11,23 @@ const ambulanceSchema = new Schema({
   },
   ambulanceType: {
     type: String,
-    enum: ['bls', 'als', 'micu', 'air', 'mortuary', 'boat'],
-    required: [true, 'Type is required'],
+    enum: ["bls", "als", "micu", "air", "mortuary", "boat"],
+    required: [true, "Type is required"],
   },
   driverName: {
     type: String,
-    required: [true, 'Driver Name is required'],
+    required: [true, "Driver Name is required"],
     trim: true,
   },
   phone: {
     type: String,
-    required: [true, 'Driver Phone is required'],
+    required: [true, "Driver Phone is required"],
     trim: true,
     unique: true,
   },
   password: {
     type: String,
-    required: [true, 'Password is required'],
+    required: [true, "Password is required"],
   },
   // hospital: {
   //   type: Schema.Types.ObjectId,
@@ -44,47 +44,50 @@ const ambulanceSchema = new Schema({
     },
     longitude: {
       type: String,
-    }
-  },
-  source:{
-    latitude :{
-      type : String,
     },
-    longitude : {
-      type: String
-    }
   },
-  destination : {
-    latitude :{
-      type : String,
+  source: {
+    latitude: {
+      type: String,
     },
-    longitude : {
-      type: String
-    }
+    longitude: {
+      type: String,
+    },
   },
-  online : {
-    type : Boolean
+  destination: {
+    latitude: {
+      type: String,
+    },
+    longitude: {
+      type: String,
+    },
   },
-  isAssigned : {
-    type : Boolean
+  online: {
+    type: Boolean,
   },
-  assignedTo : {
-    type : Schema.Types.ObjectId,
-    ref : 'User',
-  }
+  isAssigned: {
+    type: Boolean,
+  },
+  assignedTo: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
-ambulanceSchema.pre('save', async function (next) {
-  if (this.isModified('password')) {
+ambulanceSchema.pre("save", async function (next) {
+  if (this.isModified("password")) {
     this.password = await bcrypt.hash(this.password, 12);
   }
   next();
 });
 
-ambulanceSchema.methods.isCorrectPassword = async function (providedPassword, userPassword) {
+ambulanceSchema.methods.isCorrectPassword = async function (
+  providedPassword,
+  userPassword
+) {
   return await bcrypt.compare(providedPassword, userPassword);
-}
+};
 
-const Ambulance = mongoose.model('Ambulance', ambulanceSchema);
+const Ambulance = mongoose.model("Ambulance", ambulanceSchema);
 
 module.exports = Ambulance;
